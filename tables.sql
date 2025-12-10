@@ -32,3 +32,27 @@ CREATE TABLE team_tournament(
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	UNIQUE(tournament_id, team_id)	
 );
+
+CREATE TABLE player(
+	id SERIAL PRIMARY KEY,
+	team_id INT NOT NULL REFERENCES team(id),
+	first_name VARCHAR(100) NOT NULL,
+	last_name VARCHAR(100) NOT NULL,
+	date_of_birth DATE,
+	position VARCHAR(50) CHECK (position IN('GK', 'DF', 'MF', 'FW')),
+	number int,
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE referee(
+	id SERIAL PRIMARY KEY,
+	first_name VARCHAR(100) NOT NULL,
+	last_name VARCHAR(100) NOT NULL,
+	date_of_birth DATE,
+	nationality VARCHAR(100),
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+
