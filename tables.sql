@@ -55,4 +55,38 @@ CREATE TABLE referee(
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE match_type(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	description TEXT,
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE match(
+	id SERIAL PRIMARY KEY,
+	tournament_id INT NOT NULL REFERENCES tournament(id),
+	match_type_id INT NOT NULL REFERENCES match_type(id),
+	home_team_id INT NOT NULL REFERENCES team(id),
+	away_team_id INT NOT NULL REFERENCES team(id),
+	referee_id INT REFERENCES referee(id),
+	match_datetime TIMESTAMP NOT NULL,
+	venue VARCHAR(255),
+	home_score INT DEFAULT 0,
+	away_score INT DEFAULT 0,
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE match_event(
+	id SERIAL PRIMARY KEY,
+	match_id INT NOT NULL REFERENCES match(id),
+	team_id INT NOT NULL REFERENCES team(id),
+	player_id INT NOT NULL REFERENCES player(id),
+	event_type VARCHAR(50) NOT NULL,
+	minute INT NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+	
+);
 
