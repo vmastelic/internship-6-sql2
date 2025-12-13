@@ -88,3 +88,16 @@ SELECT
 FROM generate_series(1, 5000);
 
 
+UPDATE tournament t
+SET winner_team_id = sub.team_id
+FROM (
+    SELECT DISTINCT ON (tournament_id)
+           tournament_id,
+           team_id
+    FROM team_tournament
+    ORDER BY tournament_id, points DESC
+) sub
+WHERE t.id = sub.tournament_id;
+
+
+
