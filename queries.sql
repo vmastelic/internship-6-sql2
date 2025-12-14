@@ -1,3 +1,4 @@
+EXPLAIN ANALYSE
 SELECT
 	t.name,
 	t.year,
@@ -5,7 +6,6 @@ SELECT
 	tm.name AS winner
 FROM tournament t
 LEFT JOIN team tm ON tm.id = t.winner_team_id;
-
 
 SELECT
 	t.name AS tournament,
@@ -41,6 +41,7 @@ JOIN match_type mt ON mt.id = m.match_type_id
 WHERE m.tournament_id = 1;
 
 
+
 SELECT
     tr.name AS tournament,
     m.match_datetime,
@@ -49,13 +50,12 @@ SELECT
     mt.name AS phase,
     m.home_score,
     m.away_score
-FROM team t
+FROM match m
 JOIN tournament tr ON tr.id = m.tournament_id
 JOIN team ht ON ht.id = m.home_team_id
 JOIN team at ON at.id = m.away_team_id
 JOIN match_type mt ON mt.id = m.match_type_id
 WHERE m.home_team_id = 1 OR m.away_team_id = 1;
-
 
 SELECT
     me.event_type,
@@ -107,7 +107,6 @@ JOIN team te ON te.id = tt.team_id
 WHERE tt.tournament_id = 1
 ORDER BY tt.position;
 
-
 SELECT
 	mt.name,
 	tr.name AS tournament,
@@ -119,7 +118,6 @@ JOIN tournament tr ON tr.id = m.tournament_id
 JOIN team ht ON ht.id = m.home_team_id
 JOIN team at ON at.id = m.away_team_id
 WHERE mt.name = 'final';
-
 
 SELECT
 	mt.name,
@@ -195,7 +193,6 @@ JOIN player p ON p.id = me.player_id
 JOIN team te ON te.id = me.team_id
 WHERE me.event_type = 'goal'
 ORDER BY te.id, goals DESC;
-
 
 SELECT
     r.first_name,
